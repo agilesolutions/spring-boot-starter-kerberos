@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.kerberos.authentication.KerberosServiceRequestToken;
 
 import ch.agilesolutions.boot.start.config.KerberosPoperties;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -27,6 +27,10 @@ public class AuthenticationService {
 
   
   static public void addToken(HttpServletResponse res, KerberosServiceRequestToken token) {
+	  
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	
+	// now add roles as claims
 	  
     String JwtToken = Jwts.builder().setSubject(token.getName())
         .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
