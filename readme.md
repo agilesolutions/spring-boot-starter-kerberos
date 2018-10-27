@@ -14,7 +14,7 @@ This is a Spring Boot starter for automatically configuring kerberos AD authenti
 ```
 
 
-### Example of configuring loggers and appenders:
+### Example how to configure kerberos and AD role mapping:
 
 ```
 spring:
