@@ -14,7 +14,16 @@ This is a Spring Boot starter for automatically configuring kerberos AD authenti
 ```
 
 
-### This requires you to setup 2 properties on the configuration of you application:
+### Example of configuring loggers and appenders:
 
-1. spring.kerberos.ktab - location of the servers keytab file letting your app to a pre-authentication to AD.
-2. spring.kerberos.spn - Service Principal Name you configured on your keytab file.
+```
+spring:
+  kerberos:
+	ktab: ...
+	ktab: ...
+	signingkey: ...
+	roles:
+	  user: ad-user-group
+	  admin: ad-admin-group
+	  operator: ad-operator-group
+```
