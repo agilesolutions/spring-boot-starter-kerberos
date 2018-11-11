@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -15,10 +16,13 @@ import org.springframework.web.filter.GenericFilterBean;
 import ch.agilesolutions.boot.start.service.AuthenticationService;
 
 public class AuthenticationFilter extends GenericFilterBean {
+	
+	@Autowired
+	AuthenticationService authenticationService;
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-		Authentication authentication = AuthenticationService.getAuthentication((HttpServletRequest) request);
+		Authentication authentication = authenticationService.getAuthentication((HttpServletRequest) request);
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 

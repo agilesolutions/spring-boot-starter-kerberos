@@ -2,6 +2,9 @@ package ch.agilesolutions.boot.start.config;
 
 import java.util.Properties;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class KerberosConfig extends Properties {
 	
 

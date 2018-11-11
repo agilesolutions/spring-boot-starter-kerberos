@@ -18,6 +18,7 @@ import org.springframework.security.kerberos.web.authentication.SpnegoEntryPoint
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import ch.agilesolutions.boot.start.config.KerberosConfig;
+import ch.agilesolutions.boot.start.service.AuthenticationService;
 
 
 @Configuration
@@ -27,6 +28,12 @@ public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter 
 
 	@Autowired
 	private KerberosConfig kerberosConfig;
+	
+	@Autowired
+	private UserInfoService userInfoService;
+	
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	/**
 	 * read https://spring.io/blog/2013/07/03/spring-security-java-config-preview-web-security/#customwebsecurityconfigureradapter
@@ -57,7 +64,7 @@ public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		SunJaasKerberosClient client = new SunJaasKerberosClient();
 		client.setDebug(true);
 		provider.setKerberosClient(client);
-		provider.setUserDetailsService(userInfoService());
+		provider.setUserDetailsService(userInfoService);
 		return provider;
 	}
 
@@ -68,7 +75,7 @@ public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter 
 
 	@Bean
 	public SpnegoAuthenticationFilter  spnegoAuthenticationFilter (AuthenticationManager authenticationManager) {
-		SpnegoAuthenticationFilter  filter = new SpnegoAuthenticationFilter ();
+		SpnegoAuthenticationFilter  filter = new SpnegoAuthenticationFilter (authenticationService);
 		filter.setAuthenticationManager(authenticationManager);
 		return filter;
 	}
@@ -77,7 +84,7 @@ public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	public KerberosServiceAuthenticationProvider kerberosServiceAuthenticationProvider() {
 		KerberosServiceAuthenticationProvider provider = new KerberosServiceAuthenticationProvider();
 		provider.setTicketValidator(sunJaasKerberosTicketValidator());
-		provider.setUserDetailsService(userInfoService());
+		provider.setUserDetailsService(userInfoService);
 		return provider;
 	}
 
@@ -87,12 +94,18 @@ public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		ticketValidator.setServicePrincipal(kerberosConfig.getProperty("spn"));
 		ticketValidator.setKeyTabLocation(new FileSystemResource(kerberosConfig.getProperty("keytab")));
 		ticketValidator.setDebug(true);
+		try {
+			ticketValidator.afterPropertiesSet();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ticketValidator;
 	}
 
-	@Bean
-	public UserInfoService userInfoService() {
-		return new UserInfoService();
-	}
+//	@Bean
+//	public UserInfoService userInfoService() {
+//		return new UserInfoService();
+//	}
 
 }

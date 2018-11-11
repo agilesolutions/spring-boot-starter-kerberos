@@ -19,7 +19,7 @@ public class JWTSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.antMatcher("/**")
+		http.antMatcher("/api")
 		  	.authorizeRequests()
 		  	.anyRequest().authenticated()
 		  	.and()

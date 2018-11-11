@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -103,8 +104,18 @@ public class SpnegoAuthenticationFilter extends GenericFilterBean {
     private AuthenticationFailureHandler failureHandler;
     private SessionAuthenticationStrategy sessionStrategy = new NullAuthenticatedSessionStrategy();
     private boolean skipIfAlreadyAuthenticated = false;
+    
+    @Autowired
+    AuthenticationService authenticationService;
+    
+    
 
-    @Override
+    public SpnegoAuthenticationFilter(AuthenticationService authenticationService) {
+		super();
+		this.authenticationService = authenticationService;
+	}
+
+	@Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
@@ -147,7 +158,7 @@ public class SpnegoAuthenticationFilter extends GenericFilterBean {
             }
             sessionStrategy.onAuthentication(authentication, request, response);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            AuthenticationService.addToken(response, authenticationRequest);
+            authenticationService.addToken(response, authenticationRequest);
             if (successHandler != null) {
                 successHandler.onAuthenticationSuccess(request, response, authentication);
             }
