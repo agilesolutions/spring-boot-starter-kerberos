@@ -90,6 +90,12 @@ import ch.agilesolutions.boot.start.service.AuthenticationService;
  * \CurrentControlSet\Control\LSA\SuppressExtendedProtection to 0x02
  *
  *
+ *The Web Server responds with
+ * HTTP/1.1 401 Unauthorized
+ * WWW-Authenticate: Negotiate
+ * the client will need to send a header like
+ * Authorization: Negotiate YY.....
+ *
  * @author Mike Wiesner
  * @author Jeremy Stone
  * @since 1.0
@@ -162,10 +168,18 @@ public class SpnegoAuthenticationFilter extends GenericFilterBean {
             if (successHandler != null) {
                 successHandler.onAuthenticationSuccess(request, response, authentication);
             }
+            chain.doFilter(request, response);
 
+        } else {
+        	//resp.setStatus(401);//Unauthorized
+        	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setHeader("WWW-Authenticate", "Negotiate");
+
+//            response.sendError(401, message);
+            response.flushBuffer();
+        	
         }
 
-        chain.doFilter(request, response);
 
     }
 
