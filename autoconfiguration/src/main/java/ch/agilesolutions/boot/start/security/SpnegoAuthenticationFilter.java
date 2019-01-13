@@ -101,6 +101,8 @@ import ch.agilesolutions.boot.start.service.AuthenticationService;
  * @since 1.0
  * @see KerberosServiceAuthenticationProvider
  * @see SpnegoEntryPoint
+ * 
+ * See https://github.com/spring-projects/spring-security-kerberos/blob/master/spring-security-kerberos-web/src/main/java/org/springframework/security/kerberos/web/authentication/SpnegoAuthenticationProcessingFilter.java
  */
 public class SpnegoAuthenticationFilter extends GenericFilterBean {
 
