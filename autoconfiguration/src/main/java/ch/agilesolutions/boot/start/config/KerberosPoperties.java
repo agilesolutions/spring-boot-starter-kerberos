@@ -18,6 +18,7 @@ public class KerberosPoperties {
 	private String base;
 	private String username;
 	private String password;
+	private int maxSessions;
 	
 	public String getSigningkey() {
 		return signingkey;
@@ -67,8 +68,11 @@ public class KerberosPoperties {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
+	public int getMaxSessions() {
+		return maxSessions;
+	}
+	public void setMaxSessions(int maxSessions) {
+		this.maxSessions = maxSessions;
+	}
 	
 }

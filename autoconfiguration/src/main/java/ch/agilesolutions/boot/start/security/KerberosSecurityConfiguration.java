@@ -45,6 +45,8 @@ public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		  	.anyRequest().authenticated()
 		  	.and()
 			.addFilterBefore(spnegoAuthenticationFilter(authenticationManagerBean()), BasicAuthenticationFilter.class);
+		
+		http.sessionManagement().maximumSessions(Integer.parseInt(kerberosConfig.getProperty("maxSessions")));
 	}
 
 	@Autowired
