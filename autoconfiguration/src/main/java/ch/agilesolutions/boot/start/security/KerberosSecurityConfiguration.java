@@ -40,7 +40,7 @@ public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.antMatcher("/login")
+		http.antMatcher("/")
 		  	.authorizeRequests()
 		  	.anyRequest().authenticated()
 		  	.and()
