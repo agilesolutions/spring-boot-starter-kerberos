@@ -112,7 +112,7 @@ public class SpnegoAuthenticationFilter extends GenericFilterBean {
     private AuthenticationSuccessHandler successHandler;
     private AuthenticationFailureHandler failureHandler;
     private SessionAuthenticationStrategy sessionStrategy = new NullAuthenticatedSessionStrategy();
-    private boolean skipIfAlreadyAuthenticated = false;
+    private boolean skipIfAlreadyAuthenticated = true;
     
     @Autowired
     AuthenticationService authenticationService;
