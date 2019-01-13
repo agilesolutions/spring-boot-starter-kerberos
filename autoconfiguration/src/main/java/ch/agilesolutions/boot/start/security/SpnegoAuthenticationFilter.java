@@ -171,6 +171,7 @@ public class SpnegoAuthenticationFilter extends GenericFilterBean {
                 successHandler.onAuthenticationSuccess(request, response, authentication);
             }
             chain.doFilter(request, response);
+            return;
 
         } else {
         	//resp.setStatus(401);//Unauthorized
