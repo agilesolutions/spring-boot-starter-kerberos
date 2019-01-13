@@ -174,11 +174,9 @@ public class SpnegoAuthenticationFilter extends GenericFilterBean {
             return;
 
         } else {
-        	//resp.setStatus(401);//Unauthorized
+        	// provoke an SPNEGO handskare process with the browser
         	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setHeader("WWW-Authenticate", "Negotiate");
-
-//            response.sendError(401, message);
             response.flushBuffer();
         	
         }

@@ -31,3 +31,5 @@ spring:
 ## read
 1. [Spring security core components](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/technical-overview.html)
 2. [Orignal sources spnego filter](https://github.com/spring-projects/spring-security-kerberos)
+3. [Control the session with Spring](https://www.baeldung.com/spring-security-session)
+4. [Session management with Spring](https://docs.spring.io/spring-security/site/docs/4.0.x/reference/html/session-mgmt.html)
