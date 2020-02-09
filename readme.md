@@ -2,6 +2,42 @@
 
 This is a Spring Boot starter for automatically configuring kerberos AD authentication on your spring Boot application.
 
+## Spring Method Security
+
+* [Spring Method Security as Baeldung](https://www.baeldung.com/spring-security-method-security)
+* [Securing Spring Data REST With PreAuthorize at Dzone](https://dzone.com/articles/securing-spring-data-rest-with-preauthorize)
+* [at Github](https://github.com/farrelmr/introtospringdatarest/blob/3.0.0/src/main/java/com/javabullets/springdata/jparest/ParkrunCourseRepository.java)
+
+```
+Note that it isn't necessary to add the ROLE_ prefix here, Spring Security will add that prefix automatically.
+
+If we don't want to have that prefix, we can consider using authority instead of role.
+
+For example, let's declare a getUsernameInLowerCase method:
+
+@PreAuthorize("hasAuthority('SYS_ADMIN')")
+public String getUsernameLC(){
+    return getUsername().toLowerCase();
+}
+We could test that using authorities:
+
+@Test
+@WithMockUser(username = "JOHN", authorities = { "SYS_ADMIN" })
+public void givenAuthoritySysAdmin_whenCallGetUsernameLC_thenReturnUsername() {
+    String username = userRoleService.getUsernameInLowerCase();
+ 
+    assertEquals("john", username);
+}
+Conveniently, if we want to use the same user for many test cases, we can declare the @WithMockUser annotation at test class:
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration
+@WithMockUser(username = "john", roles = { "VIEWER" })
+public class TestWithMockUserAtClassLevel {
+    //...
+}
+
+```
 
 ## Dependency
 
