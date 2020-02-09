@@ -8,7 +8,7 @@ This is a Spring Boot starter for automatically configuring kerberos AD authenti
 * [Securing Spring Data REST With PreAuthorize at Dzone](https://dzone.com/articles/securing-spring-data-rest-with-preauthorize)
 * [at Github](https://github.com/farrelmr/introtospringdatarest/blob/3.0.0/src/main/java/com/javabullets/springdata/jparest/ParkrunCourseRepository.java)
 * [Expression-Based Access Control](https://docs.spring.io/spring-security/site/docs/current/reference/html/authorization.html#el-access)
-" [Testing Method Securit](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/test-method.html)
+* [Testing Method Securit](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/test-method.html)
 
 ```
 Note that it isn't necessary to add the ROLE_ prefix here, Spring Security will add that prefix automatically.
