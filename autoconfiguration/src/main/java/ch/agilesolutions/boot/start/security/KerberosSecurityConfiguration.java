@@ -23,6 +23,7 @@ import ch.agilesolutions.boot.start.service.AuthenticationService;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(1)
 public class KerberosSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
